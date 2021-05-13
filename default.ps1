@@ -10,3 +10,7 @@ mkdir $scriptdir/$env:username
 Get-ExecutionPolicy > $scriptdir/$env:username/test-execpolicy.txt
 $iselevated = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
 write-output "iselevated: $iselevated"  >> $scriptdir/$env:username/test-execpolicy.txt
+
+# Symlink onedrive folder
+cmd.exe /c rmdir c:\ProgramData\onedrive
+New-Item -ItemType Junction -Path C:\ProgramData\onedrive -Target $env:onedrive
