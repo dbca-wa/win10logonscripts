@@ -13,7 +13,8 @@ write-output "iselevated: $iselevated"  >> $scriptdir/$env:username-execpolicy.t
 
 # Symlink onedrive folder
 $staticonedrive = "$env:ProgramData\onedrive"
-if (!(Test-Path $staticonedrive)) { New-Item -ItemType Junction -Path $staticonedrive -Target $env:OneDriveCommercial };
+if (Test-Path $staticonedrive) { cmd.exe /c rmdir $staticonedrive };
+New-Item -ItemType Junction -Path $staticonedrive -Target $env:OneDriveCommercial;
 
 # Update drive letter maps if set
 $mapdrivescmd = "$env:ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp\driveletters.cmd";
