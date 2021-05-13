@@ -14,3 +14,16 @@ write-output "iselevated: $iselevated"  >> $scriptdir/$env:username/test-execpol
 # Symlink onedrive folder
 cmd.exe /c rmdir c:\ProgramData\onedrive
 New-Item -ItemType Junction -Path C:\ProgramData\onedrive -Target $env:OneDriveCommercial
+
+# Map user env drive letters to it
+foreach ($letter in $($($env:OneDriveLetterEmulation | Select-String -Pattern '^[A-Z]+$') -join "").toCharArray()) {
+    # Clear any network maps
+    Get-SmbMapping | Where-Object LocalPath -eq "${letter}:" | Remove-SmbMapping -Confirm:$false
+    # If drive is already mapped unmap it
+    if (Get-PSDrive | Where-Object Root -eq "${letter}:\") {
+        subst /D ${letter}: *>$null
+    # Otherwise map it
+    } else {
+        subst ${letter}: C:\ProgramData\onedrive
+    }
+}
