@@ -1,6 +1,6 @@
 # Run this script each logon elevated
 $scriptdir = "$env:ProgramData\dbca-gitlogon"
-$updatezip = https://github.com/dbca-wa/win10logonscripts/archive/refs/heads/main.zip
+$updatezip = "https://github.com/dbca-wa/win10logonscripts/archive/refs/heads/main.zip"
 
 # Refresh scripts from repo
 Invoke-WebRequest -Uri $updatezip -OutFile "$scriptdir/update.zip"
