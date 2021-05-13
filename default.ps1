@@ -13,4 +13,4 @@ write-output "iselevated: $iselevated"  >> $scriptdir/$env:username/test-execpol
 
 # Symlink onedrive folder
 cmd.exe /c rmdir c:\ProgramData\onedrive
-New-Item -ItemType Junction -Path C:\ProgramData\onedrive -Target $env:onedrive
+New-Item -ItemType Junction -Path C:\ProgramData\onedrive -Target $env:OneDriveCommercial
