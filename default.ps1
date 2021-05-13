@@ -19,6 +19,7 @@ New-Item -ItemType Junction -Path $staticonedrive -Target $env:OneDriveCommercia
 # Update drive letter maps if set
 $mapdrivescmd = "$env:ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp\driveletters.cmd";
 Remove-Item $mapdrivescmd -Force;
+New-Item $mapdrivescmd -Force;
 foreach ($letter in $($($env:OneDriveLetterEmulation | Select-String -Pattern '^[A-Z]+$') -join "").toCharArray()) {
-    write-output "subst ${letter}: $staticonedrive" >> $mapdrivescmd
+    Add-Content -Value "subst ${letter}: $staticonedrive" -Path $mapdrivescmd -Encoding ascii
 }
