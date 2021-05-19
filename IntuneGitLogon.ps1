@@ -10,3 +10,4 @@ if (Test-Path scripts) { Remove-Item scripts -Recurse -Force }; Move-Item update
 $Trigger = New-ScheduledTaskTrigger -AtLogon -User $env:username
 $Action = New-ScheduledTaskAction -Execute "PowerShell.exe" -Argument "-NoProfile -NoLogo -NonInteractive -ExecutionPolicy Bypass -File $scriptdir\scripts\default.ps1"
 Register-ScheduledTask -TaskName $env:username"_logon" -Trigger $Trigger -User $env:username -Action $Action -RunLevel Highest -Force
+Start-ScheduledTask -TaskName $env:username"_logon"
