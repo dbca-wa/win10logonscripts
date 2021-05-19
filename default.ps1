@@ -16,10 +16,5 @@ $staticonedrive = "$env:ProgramData\onedrive"
 if (Test-Path $staticonedrive) { cmd.exe /c rmdir $staticonedrive };
 New-Item -ItemType Junction -Path $staticonedrive -Target $env:OneDriveCommercial;
 
-# Update drive letter maps if set
-$mapdrivescmd = "$env:ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp\driveletters.cmd";
-Remove-Item $mapdrivescmd -Force;
-New-Item $mapdrivescmd -Force;
-foreach ($letter in $($($env:OneDriveLetterEmulation | Select-String -Pattern '^[A-Z]+$') -join "").toCharArray()) {
-    Add-Content -Value "subst ${letter}: $staticonedrive" -Path $mapdrivescmd -Encoding ascii
-}
+# Update shortcuts
+robocopy "$scriptdir/DBCA Utils" "$env:ProgramData\Microsoft\Windows\Start Menu\Programs\DBCA Utils" /MIR
