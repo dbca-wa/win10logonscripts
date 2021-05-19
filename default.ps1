@@ -17,4 +17,4 @@ if (Test-Path $staticonedrive) { cmd.exe /c rmdir $staticonedrive };
 New-Item -ItemType Junction -Path $staticonedrive -Target $env:OneDriveCommercial;
 
 # Update shortcuts
-robocopy "$scriptdir/DBCA Utils" "$env:ProgramData\Microsoft\Windows\Start Menu\Programs\DBCA Utils" /MIR
+robocopy "$scriptdir/scripts/DBCA Utils" "$env:ProgramData\Microsoft\Windows\Start Menu\Programs\DBCA Utils" /MIR
