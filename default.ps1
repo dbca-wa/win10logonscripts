@@ -5,8 +5,12 @@ $updatezip = "https://github.com/dbca-wa/win10logonscripts/archive/refs/heads/ma
 # Refresh scripts from repo
 Invoke-WebRequest -Uri $updatezip -OutFile "$scriptdir/update.zip"
 Set-Location $scriptdir
-Expand-Archive update.zip -Force
-if (Test-Path scripts) { Remove-Item scripts -Recurse -Force }; Move-Item update\* scripts -Force; Remove-Item update -Force;
+Expand-Archive update.zip -ForceEx
+if (Test-Path "update\win10logonscripts-main\default.ps1") {
+    # Only update if zip extraction succeeded
+    if (Test-Path scripts) { Remove-Item scripts -Recurse -Force };
+    Move-Item update\* scripts -Force; Remove-Item update -Force;
+}
 Get-ExecutionPolicy > $scriptdir/$env:username-execpolicy.txt
 $iselevated = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
 write-output "iselevated: $iselevated"  >> $scriptdir/$env:username-execpolicy.txt
