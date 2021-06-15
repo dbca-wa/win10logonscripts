@@ -5,7 +5,7 @@ $updatezip = "https://github.com/dbca-wa/win10logonscripts/archive/refs/heads/ma
 # Refresh scripts from repo
 Invoke-WebRequest -Uri $updatezip -OutFile "$scriptdir/update.zip"
 Set-Location $scriptdir
-Expand-Archive update.zip -ForceEx
+Expand-Archive update.zip -Force
 if (Test-Path "update\win10logonscripts-main\default.ps1") {
     # Only update if zip extraction succeeded
     if (Test-Path scripts) { Remove-Item scripts -Recurse -Force };
