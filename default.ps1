@@ -9,7 +9,7 @@ Expand-Archive update.zip -Force
 if (Test-Path "update\win10logonscripts-main\default.ps1") {
     # Only copy if unzip worked
     robocopy "$scriptdir\update\win10logonscripts-main" "$scriptdir\scripts" /MIR;
-    Remove-Item update -Force; # cleanup update dir
+    Remove-Item update -Force -Recurse; # cleanup update dir
 }
 Get-ExecutionPolicy > $scriptdir/$env:username-execpolicy.txt
 $iselevated = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
