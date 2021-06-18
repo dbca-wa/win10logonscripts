@@ -8,7 +8,7 @@ Set-Location $scriptdir
 Expand-Archive update.zip -Force
 if (Test-Path "update\win10logonscripts-main\default.ps1") {
     # Only copy if unzip worked
-    robocopy "$scriptdir\update\win10logonscripts-main" "$scriptdir\scripts" /MIR;
+    robocopy "$scriptdir\update\win10logonscripts-main" "$scriptdir\scripts" /MIR | Out-Null;
     Remove-Item update -Force -Recurse; # cleanup update dir
 }
 Get-ExecutionPolicy > $scriptdir/$env:username-execpolicy.txt
@@ -21,7 +21,7 @@ if (Test-Path $staticonedrive) { cmd.exe /c rmdir $staticonedrive };
 New-Item -ItemType Junction -Path $staticonedrive -Target $env:OneDriveCommercial;
 
 # Update shortcuts
-robocopy "$scriptdir\scripts\DBCA Utils" "$env:ProgramData\Microsoft\Windows\Start Menu\Programs\DBCA Utils" /MIR;
+robocopy "$scriptdir\scripts\DBCA Utils" "$env:ProgramData\Microsoft\Windows\Start Menu\Programs\DBCA Utils" /MIR | Out-Null;
 
 # Update common software, only if installed
 $installed = winget list
