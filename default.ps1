@@ -34,7 +34,12 @@ $updateifinstalled = @(
     'Adobe.AdobeAcrobatReaderDC',
     'Notepad++.Notepad++',
     'GIMP.GIMP',
-    'Inkscape.Inkscape'
+    'Inkscape.Inkscape',
+    'WinSCP.WinSCP',
+    'FastStone.Viewer',
+    'Zoom.Zoom',
+    'Apple.iTunes',
+    'Google.EarthPro'
 )
 ForEach ($app in $updateifinstalled) {
     if ($installed | findstr $app) {
