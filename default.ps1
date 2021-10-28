@@ -24,7 +24,8 @@ New-Item -ItemType Junction -Path $staticonedrive -Target $env:OneDriveCommercia
 robocopy "$scriptdir\scripts\DBCA Utils" "$env:ProgramData\Microsoft\Windows\Start Menu\Programs\DBCA Utils" /MIR | Out-Null;
 
 # Update common software, only if installed
-$installed = winget list
+$installed = @()
+# $installed = winget list
 $updateifinstalled = @(
     'Google.Chrome',
     '7zip.7zip',
