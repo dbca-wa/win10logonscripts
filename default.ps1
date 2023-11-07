@@ -50,3 +50,5 @@ ForEach ($app in $updateifinstalled) {
         }
     }
 }
+
+New-ItemProperty -Path "HKCU:\Software\Microsoft\Office\16.0\Outlook\Preferences" -Name UseNewOutlook -Value 0 -Type DWord -Force
