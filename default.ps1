@@ -23,32 +23,4 @@ New-Item -ItemType Junction -Path $staticonedrive -Target $env:OneDriveCommercia
 # Update shortcuts
 robocopy "$scriptdir\scripts\DBCA Utils" "$env:ProgramData\Microsoft\Windows\Start Menu\Programs\DBCA Utils" /MIR | Out-Null;
 
-# Update common software, only if installed
-$installed = @()
-# $installed = winget list
-$updateifinstalled = @(
-    'Google.Chrome',
-    '7zip.7zip',
-    'Oracle.JavaRuntimeEnvironment',
-    'Mozilla.Firefox',
-    'VideoLAN.VLC',
-    'Adobe.AdobeAcrobatReaderDC',
-    'Notepad++.Notepad++',
-    'GIMP.GIMP',
-    'Inkscape.Inkscape',
-    'WinSCP.WinSCP',
-    'FastStone.Viewer',
-    'Zoom.Zoom',
-    'Apple.iTunes',
-    'Google.EarthPro'
-)
-ForEach ($app in $updateifinstalled) {
-    if ($installed | findstr $app) {
-        if ($($installed | findstr $app | findstr "winget")) {
-            Write-Output "$app has an update, upgrading"
-            winget install -e $app
-        }
-    }
-}
 
-New-ItemProperty -Path "HKCU:\Software\Microsoft\Office\16.0\Outlook\Preferences" -Name UseNewOutlook -Value 0 -Type DWord -Force
